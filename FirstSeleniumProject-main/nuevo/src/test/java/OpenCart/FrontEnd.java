@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FrontEnd {
     private WebDriver driver;
     private WebDriverWait wait;
-    private String username = "1uiyhiuhiuhi";
+    private String username = "ProbandoCositas";
     private String password = "123456";
 
 
@@ -103,7 +103,52 @@ public class FrontEnd {
         assertEquals("Congratulations, your account is now open.", resultado);
     }
 
+    @Test
+    @Order(3)
+    @Tag("RESUMEN CUENTA")
+    @Tag("EXITOSO")
+    public void resumeAccount() throws InterruptedException {
+        FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
 
+        Login();
+
+        frontEndPage.resumeClick();
+        String resultado = frontEndPage.resumeConfirmed();
+
+        // Compara el resultado con el texto esperado
+        assertEquals("*Balance includes deposits that may be subject to holds", resultado);
+    }
+
+    @Test
+    @Order(4)
+    @Tag("TRANSFERIR FONDOS")
+    @Tag("EXITOSO")
+    public void transferFunds() throws InterruptedException {
+        FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
+
+        Login();
+
+        frontEndPage.clickBtnTransfer();
+
+        String resultado = frontEndPage.transferText();
+
+        // Compara el resultado con el texto esperado
+        assertEquals("Transfer Funds", resultado);
+
+        frontEndPage.escribirMonto("5000");
+        frontEndPage.cmbxTransfer();
+        frontEndPage.clickConfirmTransfer();
+
+
+
+        String resultado2 = frontEndPage.transferComplete();
+
+        // Compara el resultado con el texto esperado
+        assertEquals("Transfer Complete!", resultado2);
+
+
+
+    }
 
 
     @AfterEach

@@ -62,14 +62,81 @@ public class FrontEndPage extends BasePage{
 
 
 
+
+
+
     //Resumen Cuentas
 
+    private By resumenClick = By.xpath("//a[normalize-space()='Accounts Overview']");
+    private By resumeConfirmed = By.xpath("//td[contains(text(),'*Balance includes deposits that may be subject to ')]");
+
+
+
+
     //Transferir Fondos
+
+
+    private By btnTransfer = By.xpath("//a[normalize-space()='Transfer Funds']");
+    private By transferText = By.xpath("//h1[normalize-space()='Transfer Funds']");
+    private By amount = By.xpath("//input[@id='amount']");
+
+    private By confirmTransfer = By.xpath("//input[@value='Transfer']");
+    private By transferComplete = By.xpath("//h1[normalize-space()='Transfer Complete!']");
+
+
+
+
 
     //Actividad por mes
 
 
     //Nueva Cuenta
+
+public void clickBtnTransfer() throws InterruptedException {
+    this.click(btnTransfer);
+    Thread.sleep(1000);
+
+}
+
+    public String transferText() throws InterruptedException {
+        System.out.println("*Balance includes deposits that may be subject to holds" + this.getText(transferText));
+        return this.getText(transferText);
+    }
+    public void escribirMonto(String monto) throws InterruptedException {
+        this.sendText(monto, amount);
+    }
+
+    public void clickConfirmTransfer() throws InterruptedException {
+        this.click(confirmTransfer);
+        Thread.sleep(1000);
+
+    }
+
+    public String transferComplete() throws InterruptedException {
+        System.out.println("Transfer Complete!" + this.getText(transferComplete));
+        return this.getText(transferComplete);
+    }
+
+
+    public void cmbxTransfer() throws InterruptedException {
+        By accountTypeLocator = By.xpath("//select[@id='toAccountId']");
+        String savingsOptionValue = "1";
+
+        // Llamar al método de BasePage para seleccionar la opción "SAVINGS"
+        selectOptionFromDropdown(accountTypeLocator, savingsOptionValue);
+
+    }
+
+
+    /////
+    public void resumeClick() throws InterruptedException {
+        this.click(resumenClick);
+    }
+
+    public String resumeConfirmed() throws InterruptedException {
+        System.out.println("*Balance includes deposits that may be subject to holds" + this.getText(resumeConfirmed));
+        return this.getText(resumeConfirmed);
+    }
     public void clickNewAccount() throws InterruptedException {
         this.click(newAccount);
     }
@@ -83,9 +150,11 @@ public class FrontEndPage extends BasePage{
     }
     public void setAccountConfirmed() throws InterruptedException {
         this.click(openNewAccount);
+        Thread.sleep(1000);
+
     }
     public String validaCuentaNueva() throws InterruptedException {
-        System.out.println("Se valida mensaje de cuenta creada: " + this.getText(successMessage));
+        System.out.println("Se valida mensaje de cuenta creada: " + this.getText(accountConfirmed));
         return this.getText(accountConfirmed);
     }
 
@@ -100,6 +169,7 @@ public class FrontEndPage extends BasePage{
 
     public void clickRegister() throws InterruptedException {
         this.click(btnRegister);
+        Thread.sleep(1000);
     }
 
     public void escribirNombre(String name) throws InterruptedException {
