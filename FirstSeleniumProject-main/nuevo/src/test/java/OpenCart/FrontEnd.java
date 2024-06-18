@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FrontEnd {
     private WebDriver driver;
     private WebDriverWait wait;
-    private String username = "teranPuschasdasdiasis213123";
+    private String username = "algoDistintoParaVer";
     private String password = "123456";
 
 
@@ -155,11 +155,46 @@ public class FrontEnd {
     }
 
 
-//    @AfterEach
-//    public void cerrar() {
-//        FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
-//        frontEndPage.close();
-//    }
+    @Test
+    @Order(5)
+    @Tag("ACCOUNT ACTIVITY PER MONTH")
+    @Tag("EXITOSO")
+    public void accountActivityPerMonth() throws InterruptedException {
+        FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
+
+        Login();
+
+        frontEndPage.resumeClick();
+
+
+
+        String resultado = frontEndPage.resumeConfirmed();
+
+        // Compara el resultado con el texto esperado
+        assertEquals("*Balance includes deposits that may be subject to holds", resultado);
+
+        frontEndPage.monthActivity();
+
+        String resultado2 = frontEndPage.accountDetails();
+
+        // Compara el resultado con el texto esperado
+        assertEquals("Account Details", resultado2);
+
+        frontEndPage.activityPeriod();
+        frontEndPage.activityType();
+
+        frontEndPage.accountGo();
+
+
+    }
+
+
+
+    @AfterEach
+    public void cerrar() {
+        FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
+        frontEndPage.close();
+    }
 
     @AfterAll
     public static void saveReport() {

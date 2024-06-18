@@ -85,13 +85,54 @@ public class FrontEndPage extends BasePage{
 
 
 
-
-
     //Actividad por mes
 
+    private By monthActivity = By.xpath("/html[1]/body[1]/div[1]/div[3]/div[2]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/a[1]");
+    private By accountDetails = By.xpath("//h1[normalize-space()='Account Details']");
+    private By accountGo = By.xpath("//input[@value='Go']");
 
-    //Nueva Cuenta
 
+
+
+    //
+    public void monthActivity() throws InterruptedException {
+        this.click(monthActivity);
+        Thread.sleep(1000);
+
+    }
+
+    public String accountDetails() throws InterruptedException {
+        System.out.println("Se valida mensaje de detalles de cuenta" + this.getText(accountDetails));
+        return this.getText(accountDetails);
+    }
+
+    public void activityPeriod() throws InterruptedException {
+        By accountTypeLocator = By.id("month");
+        int savingsOptionValue = 0;
+
+        selectOptionFromDropdown(accountTypeLocator, savingsOptionValue);
+        Thread.sleep(1000);
+
+
+    }
+
+    public void activityType() throws InterruptedException {
+        By accountTypeLocator = By.id("transactionType");
+        int savingsOptionValue = 0;
+
+        selectOptionFromDropdown(accountTypeLocator, savingsOptionValue);
+        Thread.sleep(1000);
+
+
+    }
+
+    public void accountGo() throws InterruptedException {
+        this.click(accountGo);
+        Thread.sleep(1000);
+
+    }
+
+    //
 public void clickBtnTransfer() throws InterruptedException {
     this.click(btnTransfer);
     Thread.sleep(1000);
@@ -99,7 +140,7 @@ public void clickBtnTransfer() throws InterruptedException {
 }
 
     public String transferText() throws InterruptedException {
-        System.out.println("*Balance includes deposits that may be subject to holds" + this.getText(transferText));
+        System.out.println("Se valida mensaje de advertencia del deposito: " + this.getText(transferText));
         return this.getText(transferText);
     }
     public void escribirMonto(String monto) throws InterruptedException {
@@ -113,7 +154,7 @@ public void clickBtnTransfer() throws InterruptedException {
     }
 
     public String transferComplete() throws InterruptedException {
-        System.out.println("Transfer Complete!" + this.getText(transferComplete));
+        System.out.println("Se valida mensaje de transferencia completada: " + this.getText(transferComplete));
         return this.getText(transferComplete);
     }
 
@@ -136,7 +177,7 @@ public void clickBtnTransfer() throws InterruptedException {
     }
 
     public String resumeConfirmed() throws InterruptedException {
-        System.out.println("Se valida mensaje de cuenta creada: " + this.getText(resumeConfirmed));
+        System.out.println("Se valida mensaje de resumen: " + this.getText(resumeConfirmed));
         return this.getText(resumeConfirmed);
     }
     public void clickNewAccount() throws InterruptedException {
