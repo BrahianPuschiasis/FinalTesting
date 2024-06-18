@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -85,5 +86,15 @@ public class BasePage {
     protected String getText(By locator) throws InterruptedException {
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         return this.findElement(locator).getText();
+    }
+
+    // Método para seleccionar una opción en un menú desplegable
+    protected void selectOptionFromDropdown(By dropdownLocator, String optionValue) {
+        WebElement dropdown = driver.findElement(dropdownLocator);
+        dropdown.click();  // Hacer clic en el elemento del menú desplegable si es necesario
+
+        // Crear un objeto Select a partir del elemento encontrado
+        Select select = new Select(dropdown);
+        select.selectByValue(optionValue);  // Seleccionar la opción por su valor
     }
 }

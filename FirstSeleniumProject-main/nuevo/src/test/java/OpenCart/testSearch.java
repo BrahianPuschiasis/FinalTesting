@@ -20,6 +20,8 @@ public class testSearch {
         System.out.println("<<< COMIENZAN LOS TEST DE BUSCAR >>>");
     }
 
+
+
     @BeforeEach
     public void setUp() throws InterruptedException {
         ChromeOptions options = new ChromeOptions();
@@ -57,8 +59,8 @@ public class testSearch {
 
     @AfterEach
     public void cerrar() {
-        RegisterPage registerPage = new RegisterPage(driver, wait);
-        registerPage.close();
+        FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
+        frontEndPage.close();
     }
 
     @AfterAll
