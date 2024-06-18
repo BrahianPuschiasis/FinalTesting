@@ -85,7 +85,7 @@ public class FrontEnd {
 
     @Test
     @Order(2)
-    @Tag("ABRIR CUENTA")
+    @Tag("ABRIR_CUENTA")
     @Tag("EXITOSO")
     public void openAccount() throws InterruptedException {
         FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
@@ -106,7 +106,7 @@ public class FrontEnd {
 
     @Test
     @Order(3)
-    @Tag("RESUMEN CUENTA")
+    @Tag("RESUMEN_CUENTA")
     @Tag("EXITOSO")
     public void resumeAccount() throws InterruptedException {
         FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
@@ -125,7 +125,7 @@ public class FrontEnd {
 
     @Test
     @Order(4)
-    @Tag("TRANSFERIR FONDOS")
+    @Tag("TRANSFERIR_FONDOS")
     @Tag("EXITOSO")
     public void transferFunds() throws InterruptedException {
         FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
@@ -157,7 +157,7 @@ public class FrontEnd {
 
     @Test
     @Order(5)
-    @Tag("ACCOUNT ACTIVITY PER MONTH")
+    @Tag("ACCOUNT_ACTIVITY_PER_MONTH")
     @Tag("EXITOSO")
     public void accountActivityPerMonth() throws InterruptedException {
         FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
