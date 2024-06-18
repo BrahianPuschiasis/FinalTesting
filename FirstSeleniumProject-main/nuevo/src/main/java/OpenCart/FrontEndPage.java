@@ -57,7 +57,7 @@ public class FrontEndPage extends BasePage{
     private By newAccount = By.xpath("//a[normalize-space()='Open New Account']");
 
 
-    private By openNewAccount = By.xpath("//input[@value='Open New Account']");
+    private By openNewAccount = By.cssSelector("input[value='Open New Account']");
     private By accountConfirmed = By.xpath("//p[normalize-space()='Congratulations, your account is now open.']");
 
 
@@ -119,11 +119,13 @@ public void clickBtnTransfer() throws InterruptedException {
 
 
     public void cmbxTransfer() throws InterruptedException {
-        By accountTypeLocator = By.xpath("//select[@id='toAccountId']");
-        String savingsOptionValue = "1";
+        By accountTypeLocator = By.id("toAccountId");
+        int savingsOptionValue = 1;
 
         // Llamar al método de BasePage para seleccionar la opción "SAVINGS"
         selectOptionFromDropdown(accountTypeLocator, savingsOptionValue);
+        Thread.sleep(1000);
+
 
     }
 
@@ -134,7 +136,7 @@ public void clickBtnTransfer() throws InterruptedException {
     }
 
     public String resumeConfirmed() throws InterruptedException {
-        System.out.println("*Balance includes deposits that may be subject to holds" + this.getText(resumeConfirmed));
+        System.out.println("Se valida mensaje de cuenta creada: " + this.getText(resumeConfirmed));
         return this.getText(resumeConfirmed);
     }
     public void clickNewAccount() throws InterruptedException {
@@ -142,7 +144,7 @@ public void clickBtnTransfer() throws InterruptedException {
     }
     public void accountType() throws InterruptedException {
         By accountTypeLocator = By.xpath("//select[@id='type']");
-        String savingsOptionValue = "1";
+        int savingsOptionValue = 1;
 
         // Llamar al método de BasePage para seleccionar la opción "SAVINGS"
         selectOptionFromDropdown(accountTypeLocator, savingsOptionValue);

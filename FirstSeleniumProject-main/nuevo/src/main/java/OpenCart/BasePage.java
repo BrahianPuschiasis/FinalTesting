@@ -89,12 +89,13 @@ public class BasePage {
     }
 
     // Método para seleccionar una opción en un menú desplegable
-    protected void selectOptionFromDropdown(By dropdownLocator, String optionValue) {
+    protected void selectOptionFromDropdown(By dropdownLocator, int optionIndex) {
         WebElement dropdown = driver.findElement(dropdownLocator);
         dropdown.click();  // Hacer clic en el elemento del menú desplegable si es necesario
 
         // Crear un objeto Select a partir del elemento encontrado
         Select select = new Select(dropdown);
-        select.selectByValue(optionValue);  // Seleccionar la opción por su valor
+        select.selectByIndex(optionIndex);  // Seleccionar la opción por su índice
     }
+
 }

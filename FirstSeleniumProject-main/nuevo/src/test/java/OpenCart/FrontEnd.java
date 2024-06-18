@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FrontEnd {
     private WebDriver driver;
     private WebDriverWait wait;
-    private String username = "ProbandoCositas";
+    private String username = "teranPuschasdasdiasis213123";
     private String password = "123456";
 
 
@@ -96,6 +96,7 @@ public class FrontEnd {
         frontEndPage.accountType();
         frontEndPage.setAccountConfirmed();
 
+        frontEndPage.setAccountConfirmed();
 
         String resultado = frontEndPage.validaCuentaNueva();
 
@@ -113,6 +114,9 @@ public class FrontEnd {
         Login();
 
         frontEndPage.resumeClick();
+
+
+
         String resultado = frontEndPage.resumeConfirmed();
 
         // Compara el resultado con el texto esperado
@@ -151,11 +155,11 @@ public class FrontEnd {
     }
 
 
-    @AfterEach
-    public void cerrar() {
-        FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
-        frontEndPage.close();
-    }
+//    @AfterEach
+//    public void cerrar() {
+//        FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
+//        frontEndPage.close();
+//    }
 
     @AfterAll
     public static void saveReport() {
