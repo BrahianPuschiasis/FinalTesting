@@ -21,7 +21,7 @@ public class FrontEnd {
 
     @BeforeAll
     public static void createReport() {
-        System.out.println("<<< COMIENZAN LOS TEST DE REGISTRO >>>");
+        System.out.println("<<< COMIENZAN LOS TEST DE FRONTEND >>>");
     }
 
     @BeforeEach
@@ -198,6 +198,6 @@ public class FrontEnd {
 
     @AfterAll
     public static void saveReport() {
-        System.out.println("<<< FINALIZAN LOS TEST DE REGISTRO >>>");
+        System.out.println("<<< FINALIZAN LOS TEST DE FRONTEND >>>");
     }
 }
