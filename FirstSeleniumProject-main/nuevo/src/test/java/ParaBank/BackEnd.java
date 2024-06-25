@@ -1,14 +1,11 @@
-package OpenCart;
+package ParaBank;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.gherkin.model.Given;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import reportes.ReportFactory;
