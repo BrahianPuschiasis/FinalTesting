@@ -82,6 +82,7 @@ public class BackEnd {
         System.out.println(responseGet.statusCode());
         System.out.println(responseGet.getHeader("Date"));
         System.out.println(responseGet.getTime());
+        test.log(Status.INFO, "Intentando hacer GET a la url https://parabank.parasoft.com/parabank/register.htm");
 
         // Aserción para comprobar que el status code es 200
         assertEquals(200, responseGet.statusCode(), "El status code debería ser 200");
@@ -123,6 +124,8 @@ public class BackEnd {
                 .post("https://parabank.parasoft.com/parabank/services_proxy/bank/createAccount?customerId=" + customerId + "&newAccountType=" + newAccountType + "&fromAccountId=" + fromAccountId);
 
         // Imprimir los detalles de la respuesta para depuración
+        test.log(Status.INFO, "Intentando hacer POST a la url https://parabank.parasoft.com/parabank/services_proxy/bank/createAccount?customerId=");
+
         System.out.println("Response Status Code: " + response.getStatusCode());
         System.out.println("Response Body: " + response.getBody().asString());
 
@@ -177,6 +180,9 @@ public class BackEnd {
                 .auth().basic(username, password)
                 .post("https://parabank.parasoft.com/parabank/services_proxy/bank/transfer?fromAccountId=" + fromAccountId + "&toAccountId=" + toAccountId + "&amount=" + amount);
 
+
+        test.log(Status.INFO, "Intentando hacer POST a la url https://parabank.parasoft.com/parabank/services_proxy/bank/transfer?fromAccountId=");
+
         // Imprimir los detalles de la respuesta para depuración
         System.out.println("Response Status Code: " + response.getStatusCode());
         System.out.println("Response Body: " + response.getBody().asString());
@@ -205,6 +211,7 @@ public class BackEnd {
 
         // Construir la URL con los parámetros requeridos
         String url = "https://parabank.parasoft.com/parabank/services_proxy/bank/accounts/" + fromAccountId + "/transactions/month/All/type/All";
+        test.log(Status.INFO, "Intentando hacer GET a la url https://parabank.parasoft.com/parabank/services_proxy/bank/accounts/");
 
         // Enviar la solicitud GET con RestAssured
         Response response = given()
