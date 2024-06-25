@@ -11,53 +11,60 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
+import reportes.ReportFactory;
+
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BackEnd {
 
-
+    static ExtentSparkReporter info = new ExtentSparkReporter("reportes/APIGET-Test.html");
     static ExtentReports extent;
-    private static int authToken;
 
-    private static String username = "algoDistintoParaVer";
+    private static int customerId = 19316;
+    private static int fromAccountId = 24111;
+    private static int toAccountId = 24222;
+
+
+    private static String username = "puschiasisPrueboJaja";
     private static String password = "123456";
 
     @BeforeAll
-    public static void setUp() {
+    public static void setup() {
         System.out.println("<<< COMIENZAN LOS TEST DE BACKEND >>>");
-
-
-        // Construir la URL de login con placeholders para el usuario y contraseña
-        String loginUrl = "https://parabank.parasoft.com/parabank/services/bank/login/{username}/{password}";
-
-        // Realizar la solicitud GET para el login
-        Response response = given()
-                .pathParam("username", username)
-                .pathParam("password", password)
-                .when()
-                .get(loginUrl);
-
-        // Verificar que la respuesta no sea nula
-        assertEquals(200, response.getStatusCode(), "Error al autenticar. Código de estado: " + response.getStatusCode());
-
-        // Extraer el authToken del XML de respuesta (asumiendo que el XML contiene el campo 'customer.id')
-        int customerId = response.xmlPath().getInt("customer.id");
-
-        // Utilizar customerId como authToken para las pruebas posteriores
-        authToken = customerId;
-
-        System.out.println("<<< FINALIZAN LOS TEST DE BACKEND >>>");
+        extent = ReportFactory.getInstance();
+        extent.attachReporter(info);
     }
 
+//    @BeforeAll
+//    public static void setUp() {
+//        System.out.println("<<< COMIENZAN LOS TEST DE BACKEND >>>");
+//
+//
+//        // Construir la URL de login con placeholders para el usuario y contraseña
+//        String loginUrl = "https://parabank.parasoft.com/parabank/services/bank/login/{username}/{password}";
+//
+//        // Realizar la solicitud GET para el login
+//        Response response = given()
+//                .pathParam("username", username)
+//                .pathParam("password", password)
+//                .when()
+//                .get(loginUrl);
+//
+//        // Verificar que la respuesta no sea nula
+//        assertEquals(200, response.getStatusCode(), "Error al autenticar. Código de estado: " + response.getStatusCode());
+//
+//        // Extraer el authToken del XML de respuesta (asumiendo que el XML contiene el campo 'customer.id')
+//        int customerId = response.xmlPath().getInt("customer.id");
+//
+//        // Utilizar customerId como authToken para las pruebas posteriores
+//        authToken = customerId;
+//
+//        System.out.println("<<< FINALIZAN LOS TEST DE BACKEND >>>");
+//    }
 
 
-
-
-    public void login() {
-
-    }
 
 
 
@@ -66,6 +73,9 @@ public class BackEnd {
     @Tag("GET")
     public void Registro() {
         System.out.println("Iniciando Primer Test Get");
+        ExtentTest test = extent.createTest("GET - Registro");
+        test.log(Status.INFO, "Comienza el Test");
+        test.log(Status.INFO, "Iniciando test registro tipo GET");
 
         Response responseGet = RestAssured.get("https://parabank.parasoft.com/parabank/register.htm");
         System.out.println(responseGet.getBody().asString());
@@ -77,6 +87,8 @@ public class BackEnd {
         assertEquals(200, responseGet.statusCode(), "El status code debería ser 200");
 
         System.out.println("Primer Test Get finalizado");
+        test.log(Status.PASS, "GET - Registro finalizado");
+
     }
 
 
@@ -85,12 +97,11 @@ public class BackEnd {
     @Tag("POST")
     public void AbrirCuenta() {
         System.out.println("Iniciando Primer Test Post");
-        login();
+
 
         // Definir los datos para la solicitud
-        int customerId = authToken;
+//        int customerId = authToken;
         int newAccountType = 1;
-        int fromAccountId = 13455;
 
         // Construir el cuerpo de la solicitud
         JsonObject request = new JsonObject();
@@ -120,26 +131,26 @@ public class BackEnd {
     }
 
 
-    @Test
-    @Order(3)
-    @Tag("GET")
-    public void Resumen() {
-        System.out.println("Iniciando Test de Obtener Estado de Cuenta");
-
-        // URL con el token incluido
-        String url = "https://parabank.parasoft.com/parabank/overview.htm?token=FE9A088C4B8AEEAA3247327C91D2B577";
-
-        // Construir la solicitud GET con la URL que contiene el token
-        given()
-                .when()
-                .get(url)
-                .then()
-                .statusCode(200)
-                .log().status()
-                .log().body();
-
-        System.out.println("Test de Obtener Estado de Cuenta finalizado");
-    }
+//    @Test
+//    @Order(3)
+//    @Tag("GET")
+//    public void Resumen() {
+//        System.out.println("Iniciando Test de Obtener Estado de Cuenta");
+//
+//        // URL con el token incluido
+//        String url = "https://parabank.parasoft.com/parabank/overview.htm?token=FE9A088C4B8AEEAA3247327C91D2B577";
+//
+//        // Construir la solicitud GET con la URL que contiene el token
+//        given()
+//                .when()
+//                .get(url)
+//                .then()
+//                .statusCode(200)
+//                .log().status()
+//                .log().body();
+//
+//        System.out.println("Test de Obtener Estado de Cuenta finalizado");
+//    }
 
 
 
@@ -153,8 +164,6 @@ public class BackEnd {
 
 
         // Parámetros de la transferencia
-        int fromAccountId = 13566;
-        int toAccountId = 13677;
         int amount = 500;
 
         // Enviar la solicitud de transferencia con RestAssured
@@ -182,10 +191,10 @@ public class BackEnd {
 
 
         // ID de cuenta para la cual se desea obtener la actividad
-        int accountId = 13566;
+//        int accountId = 24111;
 
         // Construir la URL con los parámetros requeridos
-        String url = "https://parabank.parasoft.com/parabank/services_proxy/bank/accounts/" + accountId + "/transactions/month/All/type/All";
+        String url = "https://parabank.parasoft.com/parabank/services_proxy/bank/accounts/" + fromAccountId + "/transactions/month/All/type/All";
 
         // Enviar la solicitud GET con RestAssured
         Response response = given()
@@ -206,6 +215,7 @@ public class BackEnd {
 
     @AfterAll
     public static void saveReport() {
+        extent.flush();
         System.out.println("<<< FINALIZAN LOS TEST DE BACKEND >>>");
     }
 
