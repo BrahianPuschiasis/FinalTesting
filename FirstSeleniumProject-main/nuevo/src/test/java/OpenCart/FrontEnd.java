@@ -24,7 +24,7 @@ public class FrontEnd {
 
     private WebDriver driver;
     private WebDriverWait wait;
-    private String username = "puschiasisPrueboJaja123123";
+    private String username = "puschiasisPrueboJaja";
     private String password = "123456";
 
     @BeforeAll
@@ -62,7 +62,7 @@ public class FrontEnd {
     @Test
     @Order(1)
     @Tag("REGISTRO")
-    @Tag("EXITOSO")
+//    @Tag("EXITOSO")
     public void register() throws InterruptedException {
         ExtentTest test = extent.createTest("Registro");
 
