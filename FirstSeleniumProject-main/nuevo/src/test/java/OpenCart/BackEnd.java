@@ -97,7 +97,9 @@ public class BackEnd {
     @Tag("POST")
     public void AbrirCuenta() {
         System.out.println("Iniciando Primer Test Post");
-
+        ExtentTest test = extent.createTest("POST - Abrir Cuenta");
+        test.log(Status.INFO, "Comienza el Test");
+        test.log(Status.INFO, "Iniciando test Abrir Cuenta tipo POST");
 
         // Definir los datos para la solicitud
 //        int customerId = authToken;
@@ -128,6 +130,8 @@ public class BackEnd {
         response.then().statusCode(200);
 
         System.out.println("Primer Test Post finalizado");
+        test.log(Status.PASS, "POST - Abrir Cuenta finalizado");
+
     }
 
 
@@ -159,7 +163,9 @@ public class BackEnd {
     @Tag("POST")
     public void DescargarFondos() {
         System.out.println("Iniciando Test de Descargar Fondos");
-
+        ExtentTest test = extent.createTest("POST - Descargar Fondos");
+        test.log(Status.INFO, "Comienza el Test");
+        test.log(Status.INFO, "Iniciando test Descargar Fondos tipo POST");
         // Datos de autenticación básica
 
 
@@ -179,6 +185,8 @@ public class BackEnd {
         assertEquals(200, response.getStatusCode(), "Error: El código de estado no es 200");
 
         System.out.println("Test de Descargar Fondos finalizado");
+        test.log(Status.PASS, "POST - Descargar Fondos finalizado");
+
     }
 
     @Test
@@ -186,7 +194,9 @@ public class BackEnd {
     @Tag("GET")
     public void ActividadCuenta() {
         System.out.println("Iniciando Test de Actividad de Cuenta");
-
+        ExtentTest test = extent.createTest("GET - Actividad Cuenta");
+        test.log(Status.INFO, "Comienza el Test");
+        test.log(Status.INFO, "Iniciando test registro tipo GET");
         // Datos de autenticación básica
 
 
@@ -210,6 +220,8 @@ public class BackEnd {
         assertEquals(200, response.getStatusCode(), "Error: El código de estado no es 200");
 
         System.out.println("Test de Actividad de Cuenta finalizado");
+        test.log(Status.PASS, "GET - Actividad Cuenta finalizado");
+
     }
 
 
