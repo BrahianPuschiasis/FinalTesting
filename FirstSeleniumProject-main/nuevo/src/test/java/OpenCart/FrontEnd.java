@@ -18,18 +18,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FrontEnd {
+
+    static ExtentSparkReporter info = new ExtentSparkReporter("reportes/FrontEnd-Test.html");
+    static ExtentReports extent;
+
     private WebDriver driver;
     private WebDriverWait wait;
-    private String username = "puschiasisPrueboJaja";
+    private String username = "puschiasisPrueboJaja123123";
     private String password = "123456";
 
-    static ExtentSparkReporter info = new ExtentSparkReporter("reportes/Login-Test.html");
-    static ExtentReports extent;
     @BeforeAll
     public static void createReport() {
         extent = ReportFactory.getInstance();
         extent.attachReporter(info);
-                System.out.println("<<< COMIENZAN LOS TEST DE FRONTEND >>>");
+        System.out.println("<<< COMIENZAN LOS TEST DE FRONTEND >>>");
     }
 
     @BeforeEach
@@ -62,7 +64,7 @@ public class FrontEnd {
     @Tag("REGISTRO")
     @Tag("EXITOSO")
     public void register() throws InterruptedException {
-        ExtentTest test = extent.createTest("Registro Exitoso");
+        ExtentTest test = extent.createTest("Registro");
 
         test.log(Status.INFO, "Comienza el Test");
         FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
@@ -104,19 +106,27 @@ public class FrontEnd {
     @Tag("EXITOSO")
     public void openAccount() throws InterruptedException {
         FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
+        ExtentTest test = extent.createTest("Abrir Cuenta");
 
+        test.log(Status.INFO, "Comienza el Test");
         Login();
+        test.log(Status.INFO, "Logueo exitoso");
 
         frontEndPage.clickNewAccount();
         frontEndPage.accountType();
+        test.log(Status.INFO, "Nueva cuenta y tipo de cuenta");
+
         frontEndPage.setAccountConfirmed();
 
         frontEndPage.setAccountConfirmed();
+        test.log(Status.INFO, "Click boton confirmar");
 
         String resultado = frontEndPage.validaCuentaNueva();
 
         // Compara el resultado con el texto esperado
         assertEquals("Congratulations, your account is now open.", resultado);
+        test.log(Status.PASS, "Se abrio la cuenta exitosamente");
+
     }
 
     @Test
@@ -125,10 +135,14 @@ public class FrontEnd {
     @Tag("EXITOSO")
     public void resumeAccount() throws InterruptedException {
         FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
+        ExtentTest test = extent.createTest("Resumen Cuenta");
 
+        test.log(Status.INFO, "Comienza el Test");
         Login();
+        test.log(Status.INFO, "Logueo exitoso");
 
         frontEndPage.resumeClick();
+        test.log(Status.INFO, "Resumen click");
 
 
 
@@ -136,6 +150,8 @@ public class FrontEnd {
 
         // Compara el resultado con el texto esperado
         assertEquals("*Balance includes deposits that may be subject to holds", resultado);
+        test.log(Status.PASS, "Resumen cuenta exitoso");
+
     }
 
     @Test
@@ -144,10 +160,14 @@ public class FrontEnd {
     @Tag("EXITOSO")
     public void transferFunds() throws InterruptedException {
         FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
+        ExtentTest test = extent.createTest("Transferir Fondos");
 
+        test.log(Status.INFO, "Comienza el Test");
         Login();
+        test.log(Status.INFO, "Logueo exitoso");
 
         frontEndPage.clickBtnTransfer();
+        test.log(Status.INFO, "Click boton transferir");
 
         String resultado = frontEndPage.transferText();
 
@@ -155,8 +175,13 @@ public class FrontEnd {
         assertEquals("Transfer Funds", resultado);
 
         frontEndPage.escribirMonto("5000");
+        test.log(Status.INFO, "Cantidad de fondos escrita");
+
         frontEndPage.cmbxTransfer();
+        test.log(Status.INFO, "Combo box seleccionado");
+
         frontEndPage.clickConfirmTransfer();
+        test.log(Status.INFO, "Click en el boton transferir");
 
 
 
@@ -164,6 +189,8 @@ public class FrontEnd {
 
         // Compara el resultado con el texto esperado
         assertEquals("Transfer Complete!", resultado2);
+        test.log(Status.PASS, "Transferir fondos exitoso");
+
 
 
 
@@ -176,10 +203,14 @@ public class FrontEnd {
     @Tag("EXITOSO")
     public void accountActivityPerMonth() throws InterruptedException {
         FrontEndPage frontEndPage = new FrontEndPage(driver, wait);
+        ExtentTest test = extent.createTest("Actividad de cuenta por mes");
 
+        test.log(Status.INFO, "Comienza el Test");
         Login();
+        test.log(Status.INFO, "Logueo exitoso");
 
         frontEndPage.resumeClick();
+        test.log(Status.INFO, "Resumen click");
 
 
 
@@ -189,6 +220,7 @@ public class FrontEnd {
         assertEquals("*Balance includes deposits that may be subject to holds", resultado);
 
         frontEndPage.monthActivity();
+        test.log(Status.INFO, "Actividad por mes click");
 
         String resultado2 = frontEndPage.accountDetails();
 
@@ -197,8 +229,11 @@ public class FrontEnd {
 
         frontEndPage.activityPeriod();
         frontEndPage.activityType();
+        test.log(Status.INFO, "Periodo y tipo de cuenta seleccionados");
+        test.log(Status.INFO, "Click boton go");
 
         frontEndPage.accountGo();
+        test.log(Status.PASS, "Actividad de cuenta por mes exitoso");
 
 
     }
@@ -213,6 +248,7 @@ public class FrontEnd {
 
     @AfterAll
     public static void saveReport() {
+        extent.flush();
         System.out.println("<<< FINALIZAN LOS TEST DE FRONTEND >>>");
     }
 }

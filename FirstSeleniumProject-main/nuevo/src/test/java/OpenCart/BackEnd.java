@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BackEnd {
 
-    static ExtentSparkReporter info = new ExtentSparkReporter("reportes/APIGET-Test.html");
+    static ExtentSparkReporter info = new ExtentSparkReporter("reportes/BackEnd-Test.html");
     static ExtentReports extent;
 
     private static int customerId = 19316;
